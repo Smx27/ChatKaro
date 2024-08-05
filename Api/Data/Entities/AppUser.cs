@@ -45,4 +45,10 @@ public class AppUser : IdentityUser<int>
     /// Gets or sets the expiration time of the refresh token.
     /// </summary>
     public DateTime RefreshTokenExpiryTime { get; set; }
+
+    /// <summary>
+    /// Profile picture of the user
+    /// </summary>
+    [StringLength(int.MaxValue)]
+    public string Photo { get; set; } = string.Empty;
 }

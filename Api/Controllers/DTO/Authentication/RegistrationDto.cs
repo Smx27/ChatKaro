@@ -50,4 +50,9 @@ public class RegistrationDto
     [DataType(DataType.Text)]
     [DefaultValue("Doe")]
     public required string LastName { get; set; }
+    /// <summary>
+    /// Image of the user
+    /// </summary>
+    [Required]
+    public required string Photo { get; set; }
 }

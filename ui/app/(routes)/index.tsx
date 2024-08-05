@@ -53,7 +53,7 @@ const Walkthrough = () => {
           disableHaptics={false} // Enable haptics
           keepPressedOnLongPress={true} // Keep the button pressed on long press
           onPress={() => {
-            router.replace("/register" as Href<string>)
+            router.push("/register" as Href<string>)
           }} // Callback for press
           onLongPress={() => console.log("longpressed")} // Callback for long press
           style={styles.secondaryButton}

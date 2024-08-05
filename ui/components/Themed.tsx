@@ -16,6 +16,7 @@ import {
 import { SafeAreaView as DefaultSafeAreaView } from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "./useColorScheme";
+// import { Link as DefaultLink, LinkProps } from "expo-router";
 
 type ThemeProps = {
   lightColor?: string;
@@ -34,6 +35,7 @@ export type TouchableOpacityProps = ThemeProps &
 export type PressableProps = ThemeProps &
   (typeof DefaultPressable)["defaultProps"];
 export type TextInputProps = ThemeProps & DefaultTextInputProps;
+// export type DefaultLinkProps = ThemeProps & LinkProps;
 
 export function useThemeColor(
   props: { light?: string; dark?: string },

@@ -17,12 +17,10 @@ import PhoneInput from "react-native-phone-number-input";
 const Register = () => {
   const colorScheme = useColorScheme();
   const [value, setValue] = useState('');
-  const [countryCode, setCountryCode] = useState('');
+  const [countryCode, setCountryCode] = useState('+91');
   const [formattedValue, setFormattedValue] = useState('');
   const [valid, setValid] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
-  const phoneInput = useRef<PhoneInput>(null);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -34,7 +32,7 @@ const Register = () => {
           <Pressable
             style={styles.iconButton}
             onPress={() => {
-              if (router.canGoBack()) router.navigate("/" as Href<string>);
+              if (router.canGoBack()) router.back();
             }}
             lightColor={Colors.light.background}
             darkColor={Colors.dark.background}
@@ -60,10 +58,23 @@ const Register = () => {
           </View>
           {/* Input textbox */}
           <View style={styles.inputContainer}>
-            <PhoneNumberInput  onValidChange={()=>{}} valid={valid} formattedValue={formattedValue} showMessage={showMessage} value={value} onValueChange={(text)=> {
-                console.log(text);
-                phoneInput
-            }}  />
+            <PhoneNumberInput  
+            onChangeCountry={(countryCode)=>{
+              // console.log('get countrycode ', countryCode)
+              setCountryCode(countryCode)
+            }} 
+            valid={valid} 
+            formattedValue={formattedValue} 
+            
+            value={value} 
+            onValueChange={(text, IsValid)=> {
+                // console.log(text, IsValid);
+                // phoneInput
+                setValue(text);
+                setValid((prev:boolean) => IsValid)
+            }} 
+            onFormattedValueChange={(text)=> console.log(text)}
+            />
           </View>
         </View>
         {/* Button container */}
@@ -75,7 +86,12 @@ const Register = () => {
             pressOutAnimationDuration={250}
             disableHaptics={false}
             onPress={()=>{
-                router.navigate('/otpVerify' as Href<string>)
+                // if(value.length == 10)
+                // console.log(formattedValue.split(value))
+                  router.push({
+                    pathname:  '/otpVerify',
+                    params: {number: value, countryCode: countryCode}
+                  });
             }}
           >
             <Text

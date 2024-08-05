@@ -8,11 +8,11 @@ import { useColorScheme } from "@/components/useColorScheme";
 // Define the props interface
 interface PhoneNumberInputProps {
   value?: string;
-  onValueChange?: (text: string) => void;
+  onValueChange?: (text: string, IsValid:boolean) => void;
   formattedValue?: string;
   onFormattedValueChange?: (text: string) => void;
   valid?: boolean;
-  onValidChange?: (isValid: boolean) => void;
+  onChangeCountry?: (country: string) => void;
   showMessage?: boolean;
 }
 
@@ -22,34 +22,39 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   formattedValue = "",
   onFormattedValueChange,
   valid = false,
-  onValidChange,
+  onChangeCountry,
   showMessage = false,
 }) => {
   const phoneInput = useRef<PhoneInput>(null);
   const colorScheme = useColorScheme();
-
+  const [IsValid, setIsValid] = useState(false)
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.wrapper}>
-        {showMessage && (
-          <View style={styles.message}>
-            <Text>Value : {value}</Text>
-            <Text>Formatted Value : {formattedValue}</Text>
-            <Text>Valid : {valid ? "true" : "false"}</Text>
-          </View>
-        )}
         <PhoneInput
           textContainerStyle={styles.textContainerStyle}
           countryPickerButtonStyle={styles.countryPickerButtonStyle}
-          // ref={phoneInput}
+          ref={phoneInput}
           defaultValue={value}
           defaultCode="IN"
           layout="first"
           onChangeText={(text) => {
-            if (onValueChange) onValueChange(text);
+            const checkValid = phoneInput.current?.isValidNumber(value);
+            setIsValid( checkValid ? checkValid : false)
+            if (onValueChange) onValueChange(text, IsValid);
           }}
           onChangeFormattedText={(text) => {
             if (onFormattedValueChange) onFormattedValueChange(text);
+          }}
+          onChangeCountry={(value) => {
+            console.log(value.callingCode)
+            if (value.callingCode.length > 0) {
+              const countryCode = `+${value.callingCode[0].toLowerCase()}`;
+              console.log(countryCode)
+              if (onChangeCountry) {
+                onChangeCountry(countryCode);
+              }
+            }
           }}
           autoFocus
           withDarkTheme

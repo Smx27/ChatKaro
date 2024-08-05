@@ -1,18 +1,25 @@
-import { StyleSheet } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import { View, Text, SafeAreaView, Pressable } from "@/components/Themed";
 import React from "react";
 import Fonts from "@/constants/Fonts";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
+import Colors from "@/constants/Colors";
+import { Href, router, useLocalSearchParams } from "expo-router";
 
 const OtpVerify = () => {
+  const { number, countryCode } = useLocalSearchParams();
   return (
-    <SafeAreaView style={styles.container}>
+  <KeyboardAvoidingView
+  behavior={Platform.OS === "ios" ? "padding" : "height"}
+  style={styles.hidingContainer}
+  >
+      <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.title}>Enter Code</Text>
         <Text style={styles.subtext}>
           We have sent you an SMS with the code
         </Text>
-        <Text style={styles.subtext}>to +62 1309 - 1710 - 1920</Text>
+        <Text style={styles.subtext}>to {countryCode} {number}</Text>
       </View>
       <View style={styles.otpContainner}>
         <OTPInputView
@@ -24,21 +31,32 @@ const OtpVerify = () => {
           codeInputFieldStyle={{ borderRadius: 14 }}
           onCodeFilled={(code) => {
             console.log(`Code is ${code}, you are good to go!`);
+            if(code === '1234')
+              router.push({
+                pathname: "/addProfile",
+                params: { number: number, countryCode: countryCode }});
           }}
         />
       </View>
       <View style={styles.buttonContainner}>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Resend Code</Text>
+        <Pressable style={styles.button}
+        lightColor={Colors.light.background}
+        darkColor={Colors.dark.background}
+        >
+          <Text style={styles.buttonText} darkColor={Colors.dark.primary} lightColor={Colors.light.primary}>Resend Code</Text>
         </Pressable>
       </View>
     </SafeAreaView>
+  </KeyboardAvoidingView>
   );
 };
 
 export default OtpVerify;
 
 const styles = StyleSheet.create({
+  hidingContainer:{
+    flex:1
+  },
   container: {
     height: "100%",
     padding: 24,
@@ -58,17 +76,17 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: "center",
-    borderWidth: 1,
+    justifyContent: 'flex-end',
     width: "80%",
     height: "30%"
   },
   otpContainner: {
-    borderWidth: 1,
+    
     width: "80%",
     height: "30%"
   },
   buttonContainner:{
-    borderWidth: 1,
+    
     width: "80%",
     height: "30%"
   },
@@ -77,7 +95,10 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   buttonText: {
-    
+    fontFamily: Fonts.SemiBold,
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center'
   }
  
 });
