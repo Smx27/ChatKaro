@@ -1,3 +1,5 @@
+import { getMediaLibraryPermissionsAsync } from "expo-image-picker";
+
 const tintColorLight = '#002DE3';
 const tintColorDark = '#F7F7FC';
 
@@ -8,7 +10,8 @@ export default {
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
-    primary: '#002DE3'
+    primary: '#002DE3',
+    grey: '#F7F7FC'
   },
   dark: {
     text: '#fff',
@@ -16,6 +19,7 @@ export default {
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
-    primary:'#375FFF'
+    primary:'#375FFF',
+    grey: '#152033'
   },
 };

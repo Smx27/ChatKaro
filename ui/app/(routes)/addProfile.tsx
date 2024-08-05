@@ -9,10 +9,13 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
+  TextInput,
 } from "@/components/Themed";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import CircularImageUpload from "@/components/imageUploadComponent";
+import Colors from "@/constants/Colors";
+import InputComponent from "@/components/InputComponent";
 
 const AddProfile = () => {
   const [imageUrl, setImageUrl] = useState(
@@ -53,11 +56,10 @@ const AddProfile = () => {
       <SafeAreaView style={styles.container}>
         <Text>Upload Image</Text>
 
-        {/* <TouchableOpacity onPress={() => console.log("Pressed")}>
-          <Image source={{ uri: imageUrl }} style={styles.image} />
-        </TouchableOpacity> */}
+
         <CircularImageUpload image={imageUrl} onImagePicked={()=> {}} />
         {/* Image Upload */}
+        <InputComponent/>
         {/* firstname input */}
         {/* Lastname input */}
       </SafeAreaView>
