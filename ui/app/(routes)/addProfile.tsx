@@ -16,11 +16,11 @@ import * as ImagePicker from "expo-image-picker";
 import CircularImageUpload from "@/components/imageUploadComponent";
 import Colors from "@/constants/Colors";
 import InputComponent from "@/components/InputComponent";
+import PressableOpacity from "@/components/PressableOpacity";
+import { router } from "expo-router";
 
 const AddProfile = () => {
-  const [imageUrl, setImageUrl] = useState(
-    ""
-  );
+  const [imageUrl, setImageUrl] = useState("");
   const [image, setimage] = useState("");
   const UploadImageAsync = async () => {
     try {
@@ -54,14 +54,50 @@ const AddProfile = () => {
       style={styles.hidingContainer}
     >
       <SafeAreaView style={styles.container}>
-        <Text>Upload Image</Text>
-
-
-        <CircularImageUpload image={imageUrl} onImagePicked={()=> {}} />
+        <CircularImageUpload
+          image={imageUrl}
+          onImagePicked={(image) => {
+            console.log("image", image);
+          }}
+        />
         {/* Image Upload */}
-        <InputComponent/>
-        {/* firstname input */}
-        {/* Lastname input */}
+        <View style={styles.inputContainer}>
+          {/* first name input */}
+          <InputComponent
+            placeHolder="First Name (Required)"
+            onTextChange={(text) => console.log(text)}
+            title="First Name"
+            inputMode="text"
+            textAlign="left"
+          />
+          {/* Last name input */}
+          <InputComponent
+            placeHolder="Last Name (Optional)"
+            onTextChange={(text) => console.log(text)}
+            title="Last Name"
+            inputMode="text"
+            textAlign="left"
+          />
+        </View>
+        <PressableOpacity
+          activeOpacity={0.5}
+          pressInAnimationDuration={150}
+          pressOutAnimationDuration={250}
+          disableHaptics={false}
+          keepPressedOnLongPress={true}
+          onPress={() => router.push({pathname: '/contacts', params: {}})}
+          style={styles.secondaryButton}
+          darkColor={Colors.dark.primary}
+          lightColor={Colors.light.primary}
+        >
+          <Text
+            style={styles.text}
+            lightColor={Colors.dark.text}
+            darkColor={Colors.light.text}
+          >
+            Save
+          </Text>
+        </PressableOpacity>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
@@ -77,8 +113,24 @@ const styles = StyleSheet.create({
     height: "100%",
     padding: 24,
     flexDirection: "column",
+    justifyContent: 'space-around',
     alignItems: "center",
   },
   image: {},
   uploadButton: {},
+  inputContainer: {
+    width: "90%",
+    height: 200,
+    justifyContent: "space-around",
+  },
+  secondaryButton: {
+    width: "90%",
+    padding: 24,
+    borderRadius: 16,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+  },
 });

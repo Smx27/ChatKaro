@@ -124,8 +124,8 @@ export function TextInput(props: TextInputProps) {
     "background"
   );
   const textColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "text"
+    { dark: lightColor, light: darkColor },
+    "grey"
   );
 
   return (
@@ -139,7 +139,7 @@ export function Image (props: ImageProps) {
   const { style, lightImagePath, darkImagePath, ...otherProps } = props;
   const theme = useColorScheme() ?? "light";
   const image  = theme === "light" ?  lightImagePath as string  :  darkImagePath as string ;
-  console.log('image theme', theme, lightImagePath, image)
+  // console.log('image theme', theme, lightImagePath, image)
   const source = image ? { uri: image } : undefined;
 
   return <DefaultImage source={source}  style={style} {...otherProps} />;
