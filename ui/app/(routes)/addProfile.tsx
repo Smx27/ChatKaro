@@ -10,14 +10,14 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
+  Pressable,
 } from "@/components/Themed";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import CircularImageUpload from "@/components/imageUploadComponent";
 import Colors from "@/constants/Colors";
 import InputComponent from "@/components/InputComponent";
-import PressableOpacity from "@/components/PressableOpacity";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 const AddProfile = () => {
   const [imageUrl, setImageUrl] = useState("");
@@ -48,6 +48,11 @@ const AddProfile = () => {
       console.error(error);
     }
   };
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const { number, countryCode } = useLocalSearchParams();
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -60,12 +65,11 @@ const AddProfile = () => {
             console.log("image", image);
           }}
         />
-        {/* Image Upload */}
+
         <View style={styles.inputContainer}>
-          {/* first name input */}
           <InputComponent
             placeHolder="First Name (Required)"
-            onTextChange={(text) => console.log(text)}
+            onTextChange={(text) => setFirstName(text)}
             title="First Name"
             inputMode="text"
             textAlign="left"
@@ -73,19 +77,25 @@ const AddProfile = () => {
           {/* Last name input */}
           <InputComponent
             placeHolder="Last Name (Optional)"
-            onTextChange={(text) => console.log(text)}
+            onTextChange={(text) => setLastName(text)}
             title="Last Name"
             inputMode="text"
             textAlign="left"
           />
         </View>
-        <PressableOpacity
-          activeOpacity={0.5}
-          pressInAnimationDuration={150}
-          pressOutAnimationDuration={250}
-          disableHaptics={false}
-          keepPressedOnLongPress={true}
-          onPress={() => router.push({pathname: '/contacts', params: {}})}
+        <View>
+        <Pressable 
+          onPress={() =>
+            router.push({
+              pathname: "/contacts",
+              params: {
+                number: number,
+                countryCode: countryCode,
+                firstName: firstName,
+                lastName: lastName,
+              },
+            })
+          }
           style={styles.secondaryButton}
           darkColor={Colors.dark.primary}
           lightColor={Colors.light.primary}
@@ -97,13 +107,14 @@ const AddProfile = () => {
           >
             Save
           </Text>
-        </PressableOpacity>
+        </Pressable>
+          </View>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
 
-export default AddProfile;
+export default React.memo(AddProfile);
 
 const styles = StyleSheet.create({
   hidingContainer: {
@@ -113,7 +124,7 @@ const styles = StyleSheet.create({
     height: "100%",
     padding: 24,
     flexDirection: "column",
-    justifyContent: 'space-around',
+    justifyContent: "space-around",
     alignItems: "center",
   },
   image: {},

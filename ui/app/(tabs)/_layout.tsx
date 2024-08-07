@@ -32,6 +32,7 @@ export default function TabLayout() {
     >
       <Tabs.Screen
         name="contacts"
+        initialParams={{ number: '', countryCode: '', firstName: '', lastName: '' }} 
         options={{
           headerRight: () => <Text>Right</Text>,
           title: "Contacts",
@@ -56,7 +57,7 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="info" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable

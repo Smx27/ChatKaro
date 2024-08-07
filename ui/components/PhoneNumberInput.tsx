@@ -36,7 +36,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
           countryPickerButtonStyle={styles.countryPickerButtonStyle}
           ref={phoneInput}
           defaultValue={value}
-          defaultCode="IN"
+          // defaultCode="IN"
           layout="first"
           onChangeText={(text) => {
             const checkValid = phoneInput.current?.isValidNumber(value);

@@ -7,12 +7,10 @@ import {
 } from "react-native";
 import { View, Text, SafeAreaView, Pressable } from "@/components/Themed";
 import { useColorScheme } from "@/components/useColorScheme";
-import { Href, router } from "expo-router";
+import { router } from "expo-router";
 import Colors from "@/constants/Colors";
 import Fonts from "@/constants/Fonts";
 import PhoneNumberInput from "@/components/PhoneNumberInput";
-import PressableOpacity from "@/components/PressableOpacity";
-import PhoneInput from "react-native-phone-number-input";
 
 const Register = () => {
   const colorScheme = useColorScheme();
@@ -79,12 +77,10 @@ const Register = () => {
         </View>
         {/* Button container */}
         <View style={styles.buttonContainer}>
-          <PressableOpacity
+          <Pressable
             style={styles.button}
-            activeOpacity={0.6}
-            pressInAnimationDuration={150}
-            pressOutAnimationDuration={250}
-            disableHaptics={false}
+            lightColor={Colors.light.primary}
+            darkColor={Colors.dark.primary}
             onPress={()=>{
                 // if(value.length == 10)
                 // console.log(formattedValue.split(value))
@@ -101,14 +97,14 @@ const Register = () => {
             >
               Continue
             </Text>
-          </PressableOpacity>
+          </Pressable>
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
 
-export default Register;
+export default React.memo(Register);
 
 const styles = StyleSheet.create({
   container: {

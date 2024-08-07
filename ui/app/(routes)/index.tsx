@@ -26,12 +26,7 @@ const Walkthrough = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <PressableOpacity
-          activeOpacity={0.5} // Adjust opacity when pressed
-          pressInAnimationDuration={150} // Animation duration when pressed in
-          pressOutAnimationDuration={250} // Animation duration when pressed out
-          disableHaptics={false} // Enable haptics
-          keepPressedOnLongPress={true} // Keep the button pressed on long press
+      <Pressable 
           onPress={() => console.log("pressed")} // Callback for press
           onLongPress={() => console.log("longpressed")} // Callback for long press
           style={styles.secondaryButton}
@@ -45,27 +40,24 @@ const Walkthrough = () => {
           >
             Terms & Privacy Policy
           </Text>
-        </PressableOpacity>
-        <PressableOpacity
-          activeOpacity={0.5} // Adjust opacity when pressed
-          pressInAnimationDuration={150} // Animation duration when pressed in
-          pressOutAnimationDuration={250} // Animation duration when pressed out
-          disableHaptics={false} // Enable haptics
-          keepPressedOnLongPress={true} // Keep the button pressed on long press
-          onPress={() => {
-            router.push("/register" as Href<string>)
-          }} // Callback for press
-          onLongPress={() => console.log("longpressed")} // Callback for long press
-          style={styles.secondaryButton}
+        </Pressable>
+        <Pressable 
+        lightColor={Colors.light.primary}
+        darkColor={Colors.dark.primary}
+        style={styles.secondaryButton}
+        onPress={() => {
+          router.push("/register" as Href<string>)
+        }} 
+        onLongPress={() => console.log("long pressed")}
         >
-          <Text
+           <Text
             style={styles.text}
             lightColor={Colors.dark.text}
             darkColor={Colors.dark.text}
           >
             Start Messaging
           </Text>
-        </PressableOpacity>
+        </Pressable>
       </View>
     </SafeAreaView>
   );

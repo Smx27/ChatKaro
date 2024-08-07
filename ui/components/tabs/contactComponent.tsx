@@ -77,7 +77,7 @@ export default ContactComponent;
 const styles = StyleSheet.create({
   profileContainer: {
     flexDirection: "row",
-    gap: 10,
+    gap: 15,
     paddingVertical: 10,
     width: "100%",
     height: "10%",
