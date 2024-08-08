@@ -1,23 +1,11 @@
 import { StyleSheet } from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
-import { Text, View } from "../Themed";
+import { Pressable, Text, View } from "../Themed";
 import Fonts from "@/constants/Fonts";
 import ProfileImage from "./profileImage";
-function formatDate(date: Date): string {
-  const today = new Date();
-  const yesterday = new Date(today.setDate(today.getDate() - 1));
-  const isToday = date.toDateString() === new Date().toDateString();
-  const isYesterday = date.toDateString() === yesterday.toDateString();
+import { DateUtils } from "@/utils/time";
 
-  if (isToday) return "Today";
-  if (isYesterday) return "Yesterday";
-
-  const day = date.getDate().toString().padStart(2, "0");
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-
-  return `${day}/${month}`;
-}
 
 interface ContactComponentProps {
   imagePath: string;
@@ -25,6 +13,7 @@ interface ContactComponentProps {
   subtext: string;
   lastActive: Date;
   unreadMessage?: number;
+  onPress?: () => void;
 }
 const ContactComponent = ({
   imagePath,
@@ -32,9 +21,14 @@ const ContactComponent = ({
   name,
   subtext,
   unreadMessage,
+  onPress
 }: ContactComponentProps) => {
   return (
-    <View style={styles.profileContainer}>
+    <Pressable
+    onPress={onPress}
+    lightColor={Colors.light.background}
+    darkColor={Colors.dark.background}
+    style={styles.profileContainer}>
       <View style={styles.imageContainer}>
         <ProfileImage imagePath={imagePath} lastActive={lastActive} />
       </View>
@@ -55,7 +49,7 @@ const ContactComponent = ({
             darkColor={Colors.dark.tabIconDefault}
             style={styles.status}
           >
-            {formatDate(lastActive)}
+            {DateUtils.formatDate(lastActive)}
           </Text>
           {unreadMessage && (
             <View
@@ -68,7 +62,7 @@ const ContactComponent = ({
           )}
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

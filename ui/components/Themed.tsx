@@ -2,7 +2,7 @@
  * Learn more about Light and Dark modes:
  * https://docs.expo.io/guides/color-schemes/
  */
-import { ImageSourcePropType } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   Text as DefaultText,
   View as DefaultView,
@@ -143,4 +143,13 @@ export function Image (props: ImageProps) {
   const source = image ? { uri: image } : undefined;
 
   return <DefaultImage source={source}  style={style} {...otherProps} />;
+}
+
+export function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>["name"];
+  color?: string;
+}) {
+  const theme = useColorScheme() ?? "light";
+  const color = Colors[theme].tabIconDefault;
+  return <FontAwesome size={28} style={{ marginBottom: -3 }} name={props.name} color={props.color ?? color} />;
 }

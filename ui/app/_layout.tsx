@@ -42,6 +42,7 @@ export default function RootLayout() {
     const checkUserData = async () => {
       try {
         const userData = await cache.getItem<UserData>(INITIAL_USER_DATA_KEY);
+        console.log('User Data ==>',userData)
         if (userData) {
           setIsLoggedIn(true);
         }
@@ -95,6 +96,7 @@ function RootLayoutNav({ isLoggedIn }: RootLayoutParams) {
         ) : (
           <Stack.Screen name="(routes)" options={{ headerShown: false }} />
         )}
+        <Stack.Screen name="(chats)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
     </ThemeProvider>

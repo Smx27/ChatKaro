@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     height: 18,
   },
   header: {
-    fontFamily: Fonts.SemiBold,
-    fontSize: 18,
+    fontFamily: Fonts.Bold,
+    fontSize: 24,
     fontWeight: "600",
   },
   IconContainer:{

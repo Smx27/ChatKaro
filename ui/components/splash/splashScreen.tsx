@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 24,
-        fontFamily: 'SemiBold',
+        fontFamily: Fonts.SemiBold,
         fontWeight: '600',
     },
     contentContainer: {

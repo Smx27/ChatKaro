@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
-import { SafeAreaView, Text, View } from "@/components/Themed";
+import { Pressable, SafeAreaView, Text, View } from "@/components/Themed";
 import TabHeader from "@/components/tabs/tabHeader";
 import Search from "@/components/tabs/searchComponent";
 import Status from "@/components/tabs/statusComponent";
 import ContactComponent from "@/components/tabs/contactComponent";
+import { Link, router } from "expo-router";
 
 export default function TabOneScreen() {
   const date3 = new Date("2024-08-04");
@@ -26,6 +27,9 @@ export default function TabOneScreen() {
         </View>
 
         <ContactComponent
+          onPress={() => {
+            router.push('/chat');
+          }}
           imagePath="https://wallpapers-clan.com/wp-content/uploads/2022/07/funny-cat-1.jpg"
           lastActive={date3}
           name="Sumit Maiti"

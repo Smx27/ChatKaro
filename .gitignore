@@ -50,3 +50,5 @@ riderModule.iml
 *.db-*
 *.db
 *.user
+%*%/
+.vscode/
