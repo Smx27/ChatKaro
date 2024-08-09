@@ -10,7 +10,6 @@ import { AsyncStorageService as cache } from "@/services/AsyncStorage";
 import { INITIAL_USER_DATA_KEY } from "@/constants/ApplicationConsents";
 import { UserData } from "@/models/interfaces/userData";
 import Splash from "@/components/splash/splashScreen";
-import { View } from "@/components/Themed";
 
 export { ErrorBoundary } from "expo-router";
 
