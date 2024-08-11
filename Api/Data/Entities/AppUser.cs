@@ -51,4 +51,17 @@ public class AppUser : IdentityUser<int>
     /// </summary>
     [StringLength(int.MaxValue)]
     public string Photo { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Last active time of user
+    /// </summary>
+    public DateTime LastActive { get; set; }
+    /// <summary>
+    /// Message Sent by the user
+    /// </summary>
+    public List<Message>? MessagesSent { get; set; }
+    /// <summary>
+    /// Received message
+    /// </summary>
+    public List<Message>? MessagesReceived { get; set; }    
 }

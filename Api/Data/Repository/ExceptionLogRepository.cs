@@ -16,7 +16,7 @@ public class ExceptionLogRepository : GenericRepository<ExceptionLog>, IExceptio
     /// <param name="context">The DataContext to use for database operations.</param>
     public ExceptionLogRepository(DataContext context) : base(context)
     {
-        this._context = context;
+        _context = context;
     }
 
     /// <summary>

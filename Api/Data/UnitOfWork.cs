@@ -1,5 +1,6 @@
 using ChatKaro.API.Data.Interfaces;
 using ChatKaro.API.Data.Repository;
+using ChatKaro.API.Data.Repository.Users;
 
 namespace ChatKaro.API.Data;
 
@@ -18,12 +19,19 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
         ExceptionLog = new ExceptionLogRepository(_context);
+        User = new UserRepository(_context);
     }
 
     /// <summary>
     /// Gets the repository for logging exceptions.
     /// </summary>
     public IExceptionLogRepository ExceptionLog { get; private set; }
+    
+    
+    /// <summary>
+    /// gets the user repository to handle user data 
+    /// </summary>
+    public IUserRepository User { get; private set;  }
 
     /// <summary>
     /// Asynchronously saves all changes made in the unit of work to the database.

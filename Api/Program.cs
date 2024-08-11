@@ -17,26 +17,7 @@ builder.Services.AddApplicationDependencies();
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
+// Extension method to remove clutter
+app.AddWebApplication();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint($"/swagger/v1/swagger.json", builder.Configuration["SwaggerOptions:Version"]);
-        options.RoutePrefix = "swagger";
-    });
-    app.MapSwagger();
-}
-
-app.UseMiddleware<ExceptionMiddleware>();
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-// Adding default data to application like roles and admin user
-await app.AddDefaultApplicationData();
 app.Run();

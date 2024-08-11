@@ -11,7 +11,8 @@ public interface IUnitOfWork : IDisposable
     /// Gets the repository for logging exceptions.
     /// </summary>
     IExceptionLogRepository ExceptionLog { get; }
-
+    
+    IUserRepository User { get; }
     /// <summary>
     /// Asynchronously saves all changes made in the unit of work to the database.
     /// </summary>

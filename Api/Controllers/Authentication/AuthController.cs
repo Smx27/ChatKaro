@@ -129,12 +129,13 @@ public class AuthController : ControllerBase
     {
         var user = await _userManager.Users.SingleOrDefaultAsync(u =>
             (u.UserName != null && u.UserName.Equals(loginDto.UserName) ||
-             (u.Email != null && u.Email.Equals(loginDto.UserName))));
+             (u.Email != null && u.Email.Equals(loginDto.UserName)) || (u.PhoneNumber != null && u.PhoneNumber.Equals(loginDto.UserName)) ) );
         if (user == null)
             return BadRequest("Invalid username or password");
 
         // Get user claims
         var userClaims = await _userManager.GetClaimsAsync(user);
+        
         var userDto = new UserDto(
             email: user.Email,
             userName: user.UserName,
@@ -148,7 +149,9 @@ public class AuthController : ControllerBase
 
         return Ok(userDto);
     }
-
+    
+    // TODO: Add a mobile otp based login system 
+    
     #region Private Helper Methods
 
     private async Task<bool> UserExist(string username)
