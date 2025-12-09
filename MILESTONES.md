@@ -34,6 +34,7 @@ This document tracks the progress of the Chat Application, detailing implemented
 ### API Endpoints (REST)
 - [ ] **Message Controller**: (Optional/Hybrid) REST endpoints to fetch initial message history/threads if not done purely via SignalR.
 - [ ] **Users Controller**: Endpoint to list available users/contacts to chat with.
+- [ ] **Settings Controller**: Endpoint to manage user application settings (notifications, themes, privacy, etc.).
 
 ---
 
