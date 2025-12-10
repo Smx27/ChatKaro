@@ -1,5 +1,7 @@
 using ChatKaro.API.Extensions;
+using ChatKaro.API.Hubs;
 using ChatKaro.API.Middleware;
+using ChatKaro.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +16,14 @@ builder.Services.AddAuthenticationAndTokenValidation(builder.Configuration.GetVa
 builder.Services.AddSqLiteDatabase(builder.Configuration.GetConnectionString("DefaultConnection"));
 // Please add application dependencies here 
 builder.Services.AddApplicationDependencies();
+builder.Services.AddSingleton<PresenceTracker>();
+builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 // Extension method to remove clutter
 app.AddWebApplication();
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 
 app.Run();
