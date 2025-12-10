@@ -8,6 +8,13 @@ namespace ChatKaro.API.Services;
 /// </summary>
 public class PhotoServices : IPhotoServices
 {
+    private readonly IFileService _fileService;
+
+    public PhotoServices(IFileService fileService)
+    {
+        _fileService = fileService;
+    }
+
     /// <summary>
     /// Adds a photo asynchronously to the server storage.
     /// </summary>
@@ -22,7 +29,7 @@ public class PhotoServices : IPhotoServices
 
         var path = Path.Combine("Upload/Image", file.FileName);
 
-        await using Stream image = new FileStream(path, FileMode.CreateNew);
+        await using Stream image = _fileService.Create(path);
         await file.CopyToAsync(image);
     }
 
@@ -36,12 +43,12 @@ public class PhotoServices : IPhotoServices
     {
         var path = Path.Combine("Upload/Image", photoId);
 
-        if (!File.Exists(path))
+        if (!_fileService.Exists(path))
         {
             throw new FileNotFoundException("Photo not found.", photoId);
         }
 
-        File.Delete(path);
+        _fileService.Delete(path);
         await Task.CompletedTask;
     }
 }
