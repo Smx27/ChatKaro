@@ -2,7 +2,7 @@ namespace ChatKaro.API.Services;
 
 public class PresenceTracker
 {
-    private static readonly Dictionary<string, List<string>> OnlineUsers = new();
+    private readonly Dictionary<string, List<string>> OnlineUsers = new();
 
     public Task<bool> UserConnected(string username, string connectionId)
     {

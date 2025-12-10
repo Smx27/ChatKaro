@@ -157,6 +157,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<IExceptionLogRepository, ExceptionLogRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IFileService, FileService>();
 
         return services;
     }
